@@ -2,7 +2,7 @@
 ```
 virtualenv env
 env\Scripts\activate
-git clone https://github.com/yezz007/tilawahyuk
+git clone https://github.com/yezz007/tilawahyuk.git
 cd tilawahyuk
 pip install -r requirements.txt
 ```

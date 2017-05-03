@@ -1,6 +1,6 @@
 from tilawahyuk.settings import LINE_CHANNEL_ACCESS_TOKEN, LINE_CHANNEL_SECRET
 from linebot import (
-    LineBotApi, WebhookHandler
+    LineBotApi, WebhookHandler, WebhookParser
 )
 from linebot.exceptions import (
     InvalidSignatureError

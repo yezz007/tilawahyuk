@@ -20,4 +20,17 @@ def base(request):
     print(request.content_type)
     print(request.body)
     print(request.META)
+    print(request.META['HTTP_X_LINE_SIGNATURE'])
+    body = request.body
+    signature = request.META['HTTP_X_LINE_SIGNATURE']
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        HttpResponse(status=400)
     return HttpResponse(status=200)
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text="Hello world!"))

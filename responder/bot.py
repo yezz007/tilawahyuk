@@ -13,7 +13,7 @@ from django.http import HttpResponse
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
-parser = linebot.WebhookParser(LINE_CHANNEL_SECRET)
+parser = line_bot_api.WebhookParser(LINE_CHANNEL_SECRET)
 
 def base(request):
     print(request.scheme)

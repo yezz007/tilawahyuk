@@ -13,6 +13,7 @@ from django.http import HttpResponse
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
+parser = linebot.WebhookParser(LINE_CHANNEL_SECRET)
 
 def base(request):
     print(request.scheme)
@@ -27,6 +28,10 @@ def base(request):
         handler.handle(body, signature)
     except InvalidSignatureError:
         HttpResponse(status=400)
+    events = parser.parse(body, signature)
+    for event in events:
+        print('event:', event)
+        line_bot_api.reply_message( event.reply_token, TextSendMessage(text=event.message.text))
     return HttpResponse(status=200)
 
 @handler.add(MessageEvent, message=TextMessage)

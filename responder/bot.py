@@ -21,7 +21,7 @@ def base(request):
     print(request.body)
     print(request.META)
     print(request.META['HTTP_X_LINE_SIGNATURE'])
-    body = request.body
+    body = str(request.body)
     signature = request.META['HTTP_X_LINE_SIGNATURE']
     try:
         handler.handle(body, signature)

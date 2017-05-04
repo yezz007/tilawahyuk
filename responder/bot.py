@@ -29,7 +29,7 @@ def base(request):
     if 'HTTP_X_LINE_SIGNATURE' not in request.META:
         return HttpResponse(status=200)
     print(request.META['HTTP_X_LINE_SIGNATURE'])
-    body = str(request.body)
+    body = request.body.decode('utf-8')
     signature = request.META['HTTP_X_LINE_SIGNATURE']
     try:
         handler.handle(body, signature)

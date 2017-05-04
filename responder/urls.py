@@ -12,5 +12,5 @@ app_name = 'responder'
 
 urlpatterns = [
     url(r'^', include(router.urls)),
-    url(r'^callback/', views.line)
+    url(r'^callback/', views.line, name='webhook')
 ]

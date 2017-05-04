@@ -11,16 +11,23 @@ from linebot.models import (
 
 from django.http import HttpResponse
 
+#import logging
+
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 parser = WebhookParser(LINE_CHANNEL_SECRET)
+#logger = logging.getLogger(__name__)
 
 def base(request):
+    print('token:', LINE_CHANNEL_ACCESS_TOKEN)
+    print('secret:', LINE_CHANNEL_SECRET)
     print(request.scheme)
     print(request.encoding)
     print(request.content_type)
     print(request.body)
     print(request.META)
+    if 'HTTP_X_LINE_SIGNATURE' not in request.META:
+        return HttpResponse(status=200)
     print(request.META['HTTP_X_LINE_SIGNATURE'])
     body = str(request.body)
     signature = request.META['HTTP_X_LINE_SIGNATURE']

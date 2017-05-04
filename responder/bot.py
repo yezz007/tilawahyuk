@@ -1,6 +1,6 @@
 from tilawahyuk.settings import LINE_CHANNEL_ACCESS_TOKEN, LINE_CHANNEL_SECRET
 from linebot import (
-    LineBotApi, WebhookHandler, WebhookParser
+    LineBotApi, WebhookHandler
 )
 from linebot.exceptions import (
     InvalidSignatureError
@@ -15,7 +15,6 @@ from django.http import HttpResponse
 
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
-parser = WebhookParser(LINE_CHANNEL_SECRET)
 #logger = logging.getLogger(__name__)
 
 def base(request):
@@ -35,10 +34,6 @@ def base(request):
         handler.handle(body, signature)
     except InvalidSignatureError:
         HttpResponse(status=400)
-    events = parser.parse(body, signature)
-    for event in events:
-        print('event:', event)
-        line_bot_api.reply_message( event.reply_token, TextSendMessage(text=event.message.text))
     return HttpResponse(status=200)
 
 @handler.add(MessageEvent, message=TextMessage)
